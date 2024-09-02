@@ -24,20 +24,19 @@ resource "null_resource" "backend" {
         password = "DevOps321"
         host = module.backend.private_ip
 
-    }
+      }
      provisioner "file" {
         source      = "bootstrap.sh"
         destination = "/tmp/bootstrap.sh"
-}
+      }
 
       provisioner "remote-exec" {
         inline = [
             "chmod +x /tmp/bootstrap.sh",
-            "sudo sh /tmp/bootstrap.sh ${var.common_tags.Component} ${var.environment} ${var.app_version}"
-            
+            "sudo sh /tmp/bootstrap.sh ${var.common_tags.Component} ${var.environment} ${var.app_version}"    
         ]
 
-    }
+      }
 }
 
 resource "aws_ec2_instance_state" "backend" {
